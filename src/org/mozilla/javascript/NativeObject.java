@@ -163,6 +163,9 @@ public class NativeObject extends IdScriptableObject implements Map
             return thisObj;
 
           case Id_hasOwnProperty: {
+              if (Undefined.isUndefined(thisObj) || thisObj == null) {
+                  throw ScriptRuntime.typeError0("msg." + (thisObj == null ? "null" : "undef") + ".to.object");
+              }
               boolean result;
               Object arg = args.length < 1 ? Undefined.instance : args[0];
               if (arg instanceof Symbol) {
